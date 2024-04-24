@@ -1,15 +1,16 @@
-﻿using Projekat1.Cache;
+﻿using Projekat1.HawkeyeCache;
 
 namespace Projekat1;
 
 class Program  {
     public static void Main(string[] args) {
-        SRripCache cash = new SRripCache(3, 2, 180);
-        cash.InsertValue("a", "1");
-        cash.GetValue("a");
-        cash.InsertValue("b", "2");
-        cash.InsertValue("c", "3");
-        
-        cash.PrintCash();
+        OptGen optGen = new(2);
+        string[] letters = ["A", "B", "B", "C", "D", "E", "A", "F", "D", "E", "F", "C"];
+
+        foreach (var l in letters) {
+            Console.WriteLine(optGen.HitOrMiss(l));
+            optGen.PrintHistory();
+            Console.WriteLine();
+        }
     }
 }

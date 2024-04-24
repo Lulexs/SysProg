@@ -1,6 +1,6 @@
 using Nito.Collections;
 
-namespace Projekat1.Cache;
+namespace Projekat1.OldCache;
 
 public class SRripCache {
     private readonly int _size;
