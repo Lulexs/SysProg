@@ -29,7 +29,7 @@ public class HawkeyeCache {
         }
     }
 
-    public string? GetValue(string searchWord) {
+    public Dictionary<string, int>? GetValue(string searchWord) {
         lock (_lockObj) {
             if (_data.TryGetValue(searchWord, out CacheEntry? entry) &&
                 DateTime.Now - entry.LastAccessed < _timeToLive) {
@@ -55,7 +55,7 @@ public class HawkeyeCache {
         }
     }
 
-    public void InsertValue(string searchWord, string searchResult) {
+    public void InsertValue(string searchWord, Dictionary<string, int>searchResult) {
         lock (_lockObj) {
             bool isFriendly = _predictor.FriendlyOrAverse(searchWord);
             int srripAge = isFriendly ? 0 : _maxAge;
