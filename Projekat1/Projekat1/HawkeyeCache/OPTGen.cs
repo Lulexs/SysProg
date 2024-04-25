@@ -34,18 +34,11 @@ public class OptGen {
                 _livenessIntervals[i].LivenessIntervals += 1;
         }
 
-        if (_livenessIntervals.Count == _historyLength) {
-            _livenessIntervals.RemoveFromBack();
+        if (_livenessIntervals.Count >= _historyLength) {
+            _livenessIntervals.RemoveFromFront();
         }
         _livenessIntervals.AddToBack(new Pair(hashedWord));
 
         return optHit;
-    }
-
-    public void PrintHistory() {
-        foreach (Pair p in _livenessIntervals) {
-            Console.Write(p.LivenessIntervals + " ");
-        }
-        Console.WriteLine();
     }
 }

@@ -8,6 +8,7 @@ public class HawkeyeCache {
     private readonly LinkedList<string> _keysList;
     private readonly OptGen _optGen;
     private readonly HawkeyePredictor _predictor;
+    private readonly object _lockObj = new object();
     
     public HawkeyeCache(int size = 100, int m = 3, int secondsToLive = 180) {
         _size = size;
@@ -29,48 +30,58 @@ public class HawkeyeCache {
     }
 
     public string? GetValue(string searchWord) {
-        if (_data.TryGetValue(searchWord, out CacheEntry? entry) && DateTime.Now - entry.LastAccessed < _timeToLive) {
+        lock (_lockObj) {
+            if (_data.TryGetValue(searchWord, out CacheEntry? entry) &&
+                DateTime.Now - entry.LastAccessed < _timeToLive) {
+                bool isFriendly = _predictor.FriendlyOrAverse(searchWord);
+                _keysList.Remove(entry.AssociatedNode);
+                if (isFriendly) {
+                    entry.SRripAge = 0;
+                    _keysList.AddFirst(entry.AssociatedNode);
+                }
+                else {
+                    entry.SRripAge = _maxAge;
+                    _keysList.AddLast(entry.AssociatedNode);
+                }
+
+                entry.LastAccessed = DateTime.Now;
+
+                _TrainPredictor(searchWord);
+
+                return entry.Payload;
+            }
+
+            return null;
+        }
+    }
+
+    public void InsertValue(string searchWord, string searchResult) {
+        lock (_lockObj) {
             bool isFriendly = _predictor.FriendlyOrAverse(searchWord);
-            _keysList.Remove(entry.AssociatedNode);
-            if (isFriendly) {
-                entry.SRripAge = 0;
-                _keysList.AddFirst(entry.AssociatedNode);
+            int srripAge = isFriendly ? 0 : _maxAge;
+            if (_size == _data.Count) {
+                if (isFriendly && _data[_keysList.Last()].SRripAge != _maxAge) {
+                    foreach (CacheEntry entry in _data.Values) {
+                        entry.SRripAge += 1;
+                    }
+                }
+
+                _data.Remove(_keysList.Last());
+                _keysList.RemoveLast();
+            }
+
+            LinkedListNode<string> associatedNode = new LinkedListNode<string>(searchWord);
+            CacheEntry newEntry = new CacheEntry(searchResult, srripAge, DateTime.Now, associatedNode);
+            if (srripAge == 0) {
+                _keysList.AddFirst(associatedNode);
             }
             else {
-                entry.SRripAge = _maxAge;
-                _keysList.AddLast(entry.AssociatedNode);
+                _keysList.AddLast(associatedNode);
             }
-            entry.LastAccessed = DateTime.Now;
-            
+
+            _data.Add(searchWord, newEntry);
+
             _TrainPredictor(searchWord);
-            
-            return entry.Payload;
         }
-
-        return null;
-    }
-    
-    public void InsertValue(string searchWord, string searchResult) {
-        bool isFriendly = _predictor.FriendlyOrAverse(searchWord);
-        int srripAge = isFriendly ? 0 : _maxAge;
-        if (_size == _data.Count) {
-            if (isFriendly && _data[_keysList.Last()].SRripAge != _maxAge) {
-                foreach (CacheEntry entry in _data.Values) {
-                    entry.SRripAge += 1;
-                }
-            }
-            _data.Remove(_keysList.Last());
-            _keysList.RemoveLast();
-        }
-
-        LinkedListNode<string> associatedNode = new LinkedListNode<string>(searchWord);        
-        CacheEntry newEntry = new CacheEntry(searchResult, srripAge, DateTime.Now, associatedNode);
-        if (srripAge == 0)
-            _keysList.AddFirst(associatedNode);
-        else
-            _keysList.AddLast(associatedNode);
-        _data.Add(searchWord, newEntry);
-        
-        _optGen.HitOrMiss(searchWord);
     }
 }

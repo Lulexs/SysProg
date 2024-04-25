@@ -1,21 +1,22 @@
-﻿using Projekat1.HawkeyeCache;
+﻿using System.Net;
+using Projekat1.HawkeyeCache;
 
 namespace Projekat1;
 
 class Program  {
+    public static HawkeyeCache.HawkeyeCache cache = new HawkeyeCache.HawkeyeCache(100);
     public static void Main(string[] args) {
-        string[] letters = ["A", "B", "B", "C", "D", "E", "A", "F", "D", "E", "F", "C"];
-        HawkeyeCache.HawkeyeCache cache = new HawkeyeCache.HawkeyeCache();
-    
-        foreach (var l in letters) {
-            if (cache.GetValue(l) != null) {
-                Console.WriteLine("HIT " + l);
-            }
-            else {
-                Console.WriteLine("MISS " + l);
-                cache.InsertValue(l, l);
-            }
-        }
-        
+        // string[] prefixes = [
+        //     "http://localhost:8080/", "http://127.0.0.1:8080/",
+        //     "https://localhost:8080/", "https://127.0.0.1:8080/"
+        // ];
+        // HttpListener listener = new HttpListener();
+        // foreach (var prefix in prefixes) {
+        //     listener.Prefixes.Add(prefix);
+        // }
+        // listener.Start();
+        // Console.WriteLine($"Listening at...\n{String.Join("\n", listener.Prefixes)}");
     }
+
+
 }

@@ -4,5 +4,5 @@ public class CacheEntry(string payload, int srripAge, DateTime lastAccessed, Lin
     public readonly string Payload = payload;
     public int SRripAge = srripAge;
     public DateTime LastAccessed = lastAccessed;
-    public LinkedListNode<string> AssociatedNode = associatedNode;
+    public readonly LinkedListNode<string> AssociatedNode = associatedNode;
 }

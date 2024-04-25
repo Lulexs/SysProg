@@ -35,7 +35,6 @@ public class HawkeyePredictor {
         }
         else {
             _wordMap.Add(Hashing.Get16BitHash(searchWord), 2);
-        } 
+        }
     }
-    
 }

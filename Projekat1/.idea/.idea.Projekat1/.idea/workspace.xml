@@ -7,7 +7,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63ea4520-48ba-42ee-814e-f5059d6d9e0c" name="Changes" comment="" />
+    <list default="true" id="63ea4520-48ba-42ee-814e-f5059d6d9e0c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Projekat1/Utils/Trie.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat1/Utils/TrieNode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/HawkeyeCache/CacheEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/HawkeyeCache/CacheEntry.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/HawkeyeCache/HawkeyeCache.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/HawkeyeCache/HawkeyeCache.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/HawkeyeCache/HawkeyePredictor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/HawkeyeCache/HawkeyePredictor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/HawkeyeCache/OPTGen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/HawkeyeCache/OPTGen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/README.md" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,6 +88,8 @@
       <updated>1713886757783</updated>
       <workItem from="1713886761490" duration="7338000" />
       <workItem from="1713978872972" duration="4718000" />
+      <workItem from="1713988251040" duration="4902000" />
+      <workItem from="1714028456148" duration="8390000" />
     </task>
     <servers />
   </component>
