@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AhoCorasick" Version="2.0.258" />
       <PackageReference Include="Nito.Collections.Deque" Version="1.2.1" />
     </ItemGroup>
 
