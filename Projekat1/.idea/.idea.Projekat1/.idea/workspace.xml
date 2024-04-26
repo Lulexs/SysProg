@@ -8,10 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63ea4520-48ba-42ee-814e-f5059d6d9e0c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Projekat1/WebServer/HtmlGen.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat1/Utils/StringPair.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat1/fajl1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat1/fajl2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat1/fajl3.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projekat1/HawkeyeCache/CacheEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/HawkeyeCache/CacheEntry.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projekat1/HawkeyeCache/HawkeyeCache.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/HawkeyeCache/HawkeyeCache.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/HawkeyeCache/OPTGen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/HawkeyeCache/OPTGen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/Utils/Pair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/Utils/IntPair.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Projekat1/WebServer/WebServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/WebServer/WebServer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +93,8 @@
       <workItem from="1714060378559" duration="5233000" />
       <workItem from="1714066020880" duration="2032000" />
       <workItem from="1714072902904" duration="3625000" />
-      <workItem from="1714076584358" duration="386000" />
+      <workItem from="1714076584358" duration="597000" />
+      <workItem from="1714112204318" duration="5640000" />
     </task>
     <servers />
   </component>

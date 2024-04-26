@@ -4,7 +4,7 @@ class Program  {
     public static void Main(string[] args) {
         WebServer.WebServer webServer = new();
         webServer.Init();
-
+        
         // AhoCorasick ac = new AhoCorasick("ACC", "ATC", "CAT", "GCG");
         // string[] words = [];
         // string pattern = "GCATCG";
@@ -13,6 +13,5 @@ class Program  {
         //     Console.WriteLine(result.Key + " " + result.Value);
         // }
     }
-
 
 }

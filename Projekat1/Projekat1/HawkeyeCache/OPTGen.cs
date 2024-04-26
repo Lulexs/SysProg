@@ -4,7 +4,7 @@ using Projekat1.Utils;
 namespace Projekat1.HawkeyeCache;
 
 public class OptGen {
-    private readonly Deque<Pair> _livenessIntervals;
+    private readonly Deque<IntPair> _livenessIntervals;
     private readonly int _cacheSize;
     private readonly int _optGenFactor = 8;
     private readonly int _historyLength;
@@ -12,7 +12,7 @@ public class OptGen {
     public OptGen(int cacheSize) {
         _cacheSize = cacheSize;
         _historyLength = _optGenFactor * _cacheSize;
-        _livenessIntervals = new Deque<Pair>(_historyLength);
+        _livenessIntervals = new Deque<IntPair>(_historyLength);
     }
 
     public bool HitOrMiss(string searchWord) {
@@ -37,7 +37,7 @@ public class OptGen {
         if (_livenessIntervals.Count >= _historyLength) {
             _livenessIntervals.RemoveFromFront();
         }
-        _livenessIntervals.AddToBack(new Pair(hashedWord));
+        _livenessIntervals.AddToBack(new IntPair(hashedWord));
 
         return optHit;
     }
