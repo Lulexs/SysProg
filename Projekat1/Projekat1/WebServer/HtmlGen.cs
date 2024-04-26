@@ -13,16 +13,7 @@ public static class HtmlGen {
         sb.AppendLine("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
         sb.AppendLine("    <title>Error</title>");
         sb.AppendLine("    <style>");
-        sb.AppendLine("        body {");
-        sb.AppendLine("            font-family: sans-serif;");
-        sb.AppendLine("            margin: 0;");
-        sb.AppendLine("            padding: 0;");
-        sb.AppendLine("            display: flex;");
-        sb.AppendLine("            justify-content: center;");
-        sb.AppendLine("            align-items: center;");
-        sb.AppendLine("            min-height: 100vh;");
-        sb.AppendLine("            background-color: #f5f5f5;");
-        sb.AppendLine("        }");
+
         sb.AppendLine("        .error-container {");
         sb.AppendLine("            background-color: #fff;");
         sb.AppendLine("            padding: 30px;");
@@ -30,16 +21,19 @@ public static class HtmlGen {
         sb.AppendLine("            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);");
         sb.AppendLine("            text-align: center;");
         sb.AppendLine("        }");
+
         sb.AppendLine("        .error-container h1 {");
         sb.AppendLine("            font-size: 24px;");
         sb.AppendLine("            margin-bottom: 10px;");
         sb.AppendLine("        }");
+
         sb.AppendLine("        .error-details {");
         sb.AppendLine("            display: none;");
         sb.AppendLine("            font-size: 14px;");
         sb.AppendLine("            color: #333;");
         sb.AppendLine("            margin-top: 10px;");
         sb.AppendLine("        }");
+
         sb.AppendLine("        .error-container a.show-more {");
         sb.AppendLine("            display: inline-block;");
         sb.AppendLine("            padding: 5px 10px;");
@@ -49,9 +43,11 @@ public static class HtmlGen {
         sb.AppendLine("            border-radius: 5px;");
         sb.AppendLine("            transition: background-color 0.2s ease-in-out;");
         sb.AppendLine("        }");
+
         sb.AppendLine("        .error-container a.show-more:hover {");
         sb.AppendLine("            background-color: #2980b9;");
         sb.AppendLine("        }");
+
         sb.AppendLine("        .error-container a.show-less {");
         sb.AppendLine("            display: none;");
         sb.AppendLine("            padding: 5px 10px;");
@@ -65,38 +61,43 @@ public static class HtmlGen {
         sb.AppendLine("            background-color: #8899a6;");
         sb.AppendLine("        }");
         sb.AppendLine("    </style>");
+        sb.AppendLine("    <script>");
+        sb.AppendLine("function handleShowMoreClick() {");
+        sb.AppendLine("  const showMoreBtn = document.querySelector(\".show-more\");");
+        sb.AppendLine("  const showLessBtn = document.querySelector(\".show-less\");");
+        sb.AppendLine("  const errorDetails = document.querySelector(\".error-details\");");
+        sb.AppendLine("");
+        sb.AppendLine("  errorDetails.style.display = \"block\";");
+        sb.AppendLine("  showMoreBtn.style.display = \"none\";");
+        sb.AppendLine("  showLessBtn.style.display = \"inline-block\";");
+        sb.AppendLine("}");
+        sb.AppendLine("");
+        sb.AppendLine("function handleShowLessClick() {");
+        sb.AppendLine("  const showMoreBtn = document.querySelector(\".show-more\");");
+        sb.AppendLine("  const showLessBtn = document.querySelector(\".show-less\");");
+        sb.AppendLine("  const errorDetails = document.querySelector(\".error-details\");");
+        sb.AppendLine("");
+        sb.AppendLine("  errorDetails.style.display = \"none\";");
+        sb.AppendLine("  showMoreBtn.style.display = \"inline-block\";");
+        sb.AppendLine("  showLessBtn.style.display = \"none\";");
+        sb.AppendLine("}");
+        sb.AppendLine("    </script>");
         sb.AppendLine("</head>");
         sb.AppendLine("<body>");
         sb.AppendLine("    <div class=\"error-container\">");
         sb.AppendLine("        <h1>Error</h1>");
         sb.AppendLine("        <p>An error has occurred.</p>");
-        sb.AppendLine("        <a href=\"#\" class=\"show-more\">Show Details</a>");
+        sb.AppendLine("        <a href=\"#\" class=\"show-more\" onclick=\"handleShowMoreClick()\">Show Details</a>");
         sb.AppendLine("        <div class=\"error-details\">");
         foreach (var v in messages) {
-            sb.AppendLine($"<p>{v}</p>");
+            sb.AppendLine($"            <p>{v}</p>");
         }
         sb.AppendLine("        </div>");
-        sb.AppendLine("        <a href=\"#\" class=\"show-less\">Show Less</a>");
+        sb.AppendLine("        <a href=\"#\" class=\"show-less\" onclick=\"handleShowLessClick()\">Show Less</a>");
         sb.AppendLine("    </div>");
-        sb.AppendLine("    <script>");
-        sb.AppendLine("        const showMoreBtn = document.querySelector('.show-more');");
-        sb.AppendLine("        const showLessBtn = document.querySelector('.show-less');");
-        sb.AppendLine("        const errorDetails = document.querySelector('.error-details');");
-        sb.AppendLine("");
-        sb.AppendLine("        showMoreBtn.addEventListener('click', () => {");
-        sb.AppendLine("            errorDetails.style.display = 'block';");
-        sb.AppendLine("            showMoreBtn.style.display = 'none';");
-        sb.AppendLine("            showLessBtn.style.display = 'inline-block';");
-        sb.AppendLine("        });");
-        sb.AppendLine("");
-        sb.AppendLine("        showLessBtn.addEventListener('click', () => {");
-        sb.AppendLine("            errorDetails.style.display = 'none';");
-        sb.AppendLine("            showMoreBtn.style.display = 'inline-block';");
-        sb.AppendLine("            showLessBtn.style.display = 'none';");
-        sb.AppendLine("        });");
-        sb.AppendLine("    </script>");
         sb.AppendLine("</body>");
         sb.AppendLine("</html>");
+        
         return Encoding.UTF8.GetBytes(sb.ToString());
     }
 

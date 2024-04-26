@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     newInputGroup.classList.add("input-group");
 
     const newLabel = document.createElement("label");
-    newLabel.textContent = "Label:";
+    newLabel.textContent = "(query):";
     const newInput = document.createElement("input");
     newInput.setAttribute("type", "text");
     newInput.classList.add("input-field"); // Add class to input field

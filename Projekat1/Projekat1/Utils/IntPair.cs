@@ -2,7 +2,7 @@ namespace Projekat1.Utils;
 
 public class IntPair(int hashedString) {
     public int HashedString { get; } = hashedString;
-    public int LivenessIntervals { get; set; } = 0;
+    public int LivenessIntervals { get; set; }
 }
 
 

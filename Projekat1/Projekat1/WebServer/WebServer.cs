@@ -47,7 +47,7 @@ public class WebServer {
                 context = _listener.GetContext();
             }
             catch (Exception ec) {
-                Console.WriteLine("Failed to accept context due to " + ec.Message);
+                Console.WriteLine("Failed to accept connection due to " + ec.Message);
                 continue;
             }
             ThreadPool.QueueUserWorkItem(ProcessRequest, context);
@@ -137,7 +137,6 @@ public class WebServer {
                 continue;
             }
             
-            Console.WriteLine("Preuzeto " + fileData.FileName);
             string filename = fileData.FileName;
             string contents = fileData.Content!;
             fileData.FileName = null;
@@ -145,7 +144,6 @@ public class WebServer {
             localSemaphore.Release();
 
             var results = ac.Search(contents).GroupBy(w => w.Word).ToDictionary(g => g.Key, g => g.Count());
-            Console.WriteLine("Obradjivanje " + filename);
             foreach (KeyValuePair<string, int> pair in results) {
                 if (!statisticsDict.TryGetValue(pair.Key, out var value)) {
                     statisticsDict.Add(pair.Key,
@@ -166,11 +164,14 @@ public class WebServer {
                 }
             }
         }
+
+        foreach (var cacheMiss in toBeProcessed) {
+            Cache.InsertValue(cacheMiss, statisticsDict[cacheMiss]);
+        }
         
         return HtmlGen.GenerateSearchWordAppearanceTable(statisticsDict);
     }
-
-
+    
     private void LoadFiles(SemaphoreSlim semaphore, StringPair loadedContent) {
         
         Stack<Tuple<string, string>> buffer = new();
@@ -179,7 +180,6 @@ public class WebServer {
         while (searchFiles.Count > 0 || buffer.Count > 0 || loadedContent.FileName != null) {
             if (loadedContent.FileName == null && semaphore.Wait(0)) {
                 if (buffer.Count > 0 && loadedContent.FileName == null) {
-                    Console.WriteLine("baf " + buffer.Peek().Item1);
                     loadedContent.FileName = buffer.Peek().Item1;
                     loadedContent.Content = buffer.Peek().Item2;
                     buffer.Pop();
@@ -187,12 +187,10 @@ public class WebServer {
                 else {
                     string? fileContent = null;
                     while (searchFiles.Count > 0 && (fileContent = LoadFileContent(searchFiles.Peek())) == null) {
-                        Console.WriteLine("Popped 1 " + searchFiles.Pop());
                     }
 
                     if (fileContent != null) {
                         loadedContent.FileName = searchFiles.Pop();
-                        Console.Write("newl " + loadedContent.FileName);
                         loadedContent.Content = fileContent;
                     }
                 }
@@ -203,15 +201,13 @@ public class WebServer {
             else {
                 string? fileContent = null;
                 while (searchFiles.Count > 0 && (fileContent = LoadFileContent(searchFiles.Peek())) == null) {
-                    Console.WriteLine("Popped 2 " + searchFiles.Pop());
+                    searchFiles.Pop();
                 }
                 if (fileContent != null) {
-                    Console.WriteLine("Buffered " + searchFiles.Peek());
                     buffer.Push(new Tuple<string, string>(searchFiles.Pop(), fileContent));
                 }
             }
         }
-        Console.WriteLine("Buff len after processing: " + buffer.Count);
         semaphore.Wait();
         loadedContent.FileName = "EOF";
         loadedContent.Content = "EOF";
@@ -227,7 +223,6 @@ public class WebServer {
         try {
             using StreamReader sr = new StreamReader(filename);
             var fileContent = sr.ReadToEnd();
-            Console.WriteLine("Loaded " + filename);
             return fileContent;
         }
         catch (Exception) {

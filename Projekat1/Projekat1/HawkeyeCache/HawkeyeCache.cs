@@ -8,7 +8,9 @@ public class HawkeyeCache {
     private readonly LinkedList<string> _keysList;
     private readonly OptGen _optGen;
     private readonly HawkeyePredictor _predictor;
-    private readonly object _lockObj = new object();
+    private readonly object _lockObj = new();
+    private int _hits;
+    private int _accesses;
     
     public HawkeyeCache(int size = 100, int m = 3, int secondsToLive = 180) {
         _size = size;
@@ -48,9 +50,14 @@ public class HawkeyeCache {
 
                 _TrainPredictor(searchWord);
 
+                _hits += 1;
+                _accesses += 1;
+                Console.WriteLine($"Cache hit; Stats: {_hits}/{_accesses} | {_hits / (float)_accesses * 100}%");
                 return entry.Payload;
             }
 
+            _accesses += 1;
+            Console.WriteLine($"Cache miss; Stats: {_hits}/{_accesses} | {_hits / (float)_accesses * 100}%");
             return null;
         }
     }
