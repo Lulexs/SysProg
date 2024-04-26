@@ -8,14 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63ea4520-48ba-42ee-814e-f5059d6d9e0c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Projekat1/Utils/StringPair.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Projekat1/fajl1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Projekat1/fajl2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Projekat1/fajl3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat1/Frontend/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat1/Frontend/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat1/Frontend/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projekat1/HawkeyeCache/OPTGen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/HawkeyeCache/OPTGen.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Projekat1/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projekat1/Utils/Pair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/Utils/IntPair.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Projekat1/WebServer/WebServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/WebServer/WebServer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +22,15 @@
   </component>
   <component name="DpaMonitoringSettings">
     <option name="autoShow" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -40,8 +46,10 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;.NET Project.Projekat1.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -94,7 +102,8 @@
       <workItem from="1714066020880" duration="2032000" />
       <workItem from="1714072902904" duration="3625000" />
       <workItem from="1714076584358" duration="597000" />
-      <workItem from="1714112204318" duration="5640000" />
+      <workItem from="1714112204318" duration="5678000" />
+      <workItem from="1714126144289" duration="3259000" />
     </task>
     <servers />
   </component>

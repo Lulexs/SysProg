@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Net;
+using Ganss.Text;
 using Projekat1.Utils;
 
 namespace Projekat1.WebServer;
@@ -95,26 +96,63 @@ public class WebServer {
     private byte[] GenerateResponseForValidRequest(string[] searchWords) {
         StringPair fileData = new();
         SemaphoreSlim localSemaphore = new(1);
-        Thread loaderThread = new Thread(() => LoadFiles(localSemaphore, fileData));
-        loaderThread.Start();
         
         Dictionary<string, Dictionary<string, int>> statisticsDict = new();
         List<string> toBeProcessed = new();
+
+        Thread loaderThread = new Thread(() => {
+            LoadFilesAndSearchFiles(localSemaphore, fileData);
+        });
+        loaderThread.Start();
         
         foreach (var word in searchWords) {
             Dictionary<string, int>? cachedVal;
-            if ((cachedVal = Cache.GetValue(word)) != null) 
-                statisticsDict.Add(word, cachedVal);
+            if ((cachedVal = Cache.GetValue(word)) != null) {
+                int counter = 0;
+                while (++counter < 10 && !statisticsDict.TryAdd(word, cachedVal)) { }
+
+                if (counter >= 10) {
+                    toBeProcessed.Add(word);
+                }
+            }
             else
                 toBeProcessed.Add(word);
         }
-        
-        
+
+        var ac = new AhoCorasick(toBeProcessed);
+
+        while (true) {
+            localSemaphore.Wait();
+            if (fileData.FileName == "EOF") {
+                localSemaphore.Release();
+                break;
+            }
+
+            if (fileData.FileName == null) {
+                localSemaphore.Release();
+                continue;
+            }
+
+            var results = ac.Search(fileData.Content).GroupBy(w => w.Word).ToDictionary(g => g.Key, g => g.Count());
+            foreach (KeyValuePair<string, int> pair in results) {
+                if (!statisticsDict.TryGetValue(pair.Key, out var value)) {
+                    statisticsDict.Add(pair.Key,
+                        new Dictionary<string, int>([new KeyValuePair<string, int>(fileData.FileName!, pair.Value)]));
+                }
+                else {
+                    value.Add(fileData.FileName!, pair.Value);
+                }
+            }
+                
+            localSemaphore.Release();
+        }
         
         return HtmlGen.GenerateSearchWordAppearanceTable(statisticsDict);
     }
 
-    private void LoadFiles(SemaphoreSlim semaphore, StringPair loadedContent) {
+
+    private void LoadFilesAndSearchFiles(SemaphoreSlim semaphore, StringPair loadedContent) {
+        
         Stack<Tuple<string, string>> buffer = new();
         Stack<string> searchFiles = new Stack<string>(Directory.GetFiles(_rootDirectory, "*.txt"));
 
@@ -125,20 +163,22 @@ public class WebServer {
                     loadedContent.Content = buffer.Peek().Item2;
                     buffer.Pop();
                 }
+                else {
+                    string? fileContent = null;
+                    while (searchFiles.Count > 0 && (fileContent = LoadFileContent(searchFiles.Peek())) == null) {
+                        searchFiles.Pop();
+                    }
 
-                string? fileContent = null;
-                while (searchFiles.Count > 0 && (fileContent = LoadFileContent(searchFiles.Peek())) == null) {
-                    searchFiles.Pop();
-                }
-
-                if (fileContent != null) {
-                    loadedContent.FileName = buffer.Peek().Item1;
-                    loadedContent.Content = buffer.Peek().Item2;
-                    buffer.Pop();
+                    if (fileContent != null) {
+                        loadedContent.FileName = buffer.Peek().Item1;
+                        loadedContent.Content = buffer.Peek().Item2;
+                        buffer.Pop();
+                    }
                 }
 
                 semaphore.Release();
             }
+            
             else {
                 string? fileContent = null;
                 while (searchFiles.Count > 0 && (fileContent = LoadFileContent(searchFiles.Peek())) == null) {
@@ -168,9 +208,8 @@ public class WebServer {
             var fileContent = sr.ReadToEnd();
             return fileContent;
         }
-        catch (Exception ec) {
+        catch (Exception) {
             return null;
         }
     }
-    
 }

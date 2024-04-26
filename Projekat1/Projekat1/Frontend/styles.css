@@ -1,0 +1,67 @@
+/* styles.css */
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 50px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* Input group styles */
+.input-group {
+  margin-bottom: 20px;
+  display: flex; /* Display flex to make label and input inline */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Label styles */
+label {
+  margin-right: 10px; /* Add space between label and input */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Input styles */
+input {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+/* Plus and minus button styles */
+button {
+  padding: 8px 15px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.dummy {
+  background-color: white;
+  color: white;
+}
+
+/* Hover styles for buttons */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Minus button specific style */
+.removeInput {
+  background-color: #dc3545; /* Red color for remove button */
+}

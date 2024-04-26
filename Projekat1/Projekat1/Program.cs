@@ -1,4 +1,5 @@
-﻿namespace Projekat1;
+﻿
+namespace Projekat1;
 
 class Program  {
     public static void Main(string[] args) {
