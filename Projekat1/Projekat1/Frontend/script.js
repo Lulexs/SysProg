@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
       .map((input) => `${input.value}`)
       .join("&");
 
-    const url = `http://127.0.0.1:8883/${queryParams}`;
+    const url = `http://127.0.0.1:10889/${queryParams}`;
+    console.log(url);
     fetch(url)
       .then((response) => response.text())
       .then((html) => {
-        // Display the response HTML
         document.getElementById("response").innerHTML = html;
       })
       .catch((error) => console.error("Error querying server:", error));

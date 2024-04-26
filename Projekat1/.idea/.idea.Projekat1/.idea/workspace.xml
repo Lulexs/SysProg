@@ -8,12 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63ea4520-48ba-42ee-814e-f5059d6d9e0c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Projekat1/Frontend/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Projekat1/Frontend/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Projekat1/Frontend/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/Frontend/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/Frontend/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Projekat1/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Projekat1/WebServer/WebServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/WebServer/WebServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat1/fajl2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1/fajl2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +46,7 @@
   &quot;keyToString&quot;: {
     &quot;.NET Project.Projekat1.executor&quot;: &quot;Run&quot;,
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
@@ -66,7 +66,7 @@
     ]
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected=".NET Project.Projekat1">
     <configuration name="Projekat1" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -85,6 +85,14 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Projekat1/Projekat1/Projekat1/Frontend/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -104,6 +112,10 @@
       <workItem from="1714076584358" duration="597000" />
       <workItem from="1714112204318" duration="5678000" />
       <workItem from="1714126144289" duration="3259000" />
+      <workItem from="1714130843281" duration="136000" />
+      <workItem from="1714147733920" duration="4084000" />
+      <workItem from="1714152293135" duration="419000" />
+      <workItem from="1714152739565" duration="2089000" />
     </task>
     <servers />
   </component>
