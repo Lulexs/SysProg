@@ -29,7 +29,7 @@ public class WebServer {
     }
 
     public void Init() {
-        ThreadPool.SetMaxThreads(10, 100);
+        ThreadPool.SetMaxThreads(4, 50);
         
         try {
             _listener.Start();
@@ -79,7 +79,7 @@ public class WebServer {
         }
         else {
             try {
-                buffer = GenerateResponseForValidRequest(searchWords);
+                buffer = GenerateResponseForValidRequest(searchWords.ToHashSet());
             }
             catch (Exception ec) {
                 buffer = HtmlGen.GenerateErrorTemplate([
@@ -97,7 +97,7 @@ public class WebServer {
         Console.WriteLine($"{request.HttpMethod} from {request.UserHostAddress} successfully processed in ${stopwatch.Elapsed.TotalSeconds} seconds");
     }
 
-    private byte[] GenerateResponseForValidRequest(string[] searchWords) {
+    private byte[] GenerateResponseForValidRequest(HashSet<string> searchWords) {
         StringPair fileData = new();
         SemaphoreSlim localSemaphore = new(1);
         
@@ -124,8 +124,7 @@ public class WebServer {
         }
 
         var ac = new AhoCorasick(toBeProcessed);
-
-        while (true) {
+        while (toBeProcessed.Count > 0 /* while (true) but if no words to process exit */) {
             localSemaphore.Wait();
             if (fileData.FileName == "EOF") {
                 localSemaphore.Release();
@@ -165,26 +164,34 @@ public class WebServer {
             }
         }
 
-        foreach (var cacheMiss in toBeProcessed) {
-            Cache.InsertValue(cacheMiss, statisticsDict[cacheMiss]);
+        if (toBeProcessed.Count == 0) {
+            localSemaphore.Wait();
+            fileData.FileName = "KILL";
+            localSemaphore.Release();
         }
-        
+        else {
+            foreach (var cacheMiss in toBeProcessed) {
+                Cache.InsertValue(cacheMiss, statisticsDict[cacheMiss]);
+            }
+        }
+
+        loaderThread.Join();
         return HtmlGen.GenerateSearchWordAppearanceTable(statisticsDict);
     }
     
     private void LoadFiles(SemaphoreSlim semaphore, StringPair loadedContent) {
-        
         Stack<Tuple<string, string>> buffer = new();
         Stack<string> searchFiles = new Stack<string>(Directory.GetFiles(_rootDirectory, "*.txt"));
-
-        while (searchFiles.Count > 0 || buffer.Count > 0 || loadedContent.FileName != null) {
-            if (loadedContent.FileName == null && semaphore.Wait(0)) {
+        bool run = true;
+        
+        while (run && (searchFiles.Count > 0 || buffer.Count > 0 || loadedContent.FileName != null)) {
+            if (semaphore.Wait(0)) {
                 if (buffer.Count > 0 && loadedContent.FileName == null) {
                     loadedContent.FileName = buffer.Peek().Item1;
                     loadedContent.Content = buffer.Peek().Item2;
                     buffer.Pop();
                 }
-                else {
+                else if (loadedContent.FileName == null) {
                     string? fileContent = null;
                     while (searchFiles.Count > 0 && (fileContent = LoadFileContent(searchFiles.Peek())) == null) {
                     }
@@ -194,7 +201,9 @@ public class WebServer {
                         loadedContent.Content = fileContent;
                     }
                 }
-
+                else if (loadedContent.FileName == "KILL"){
+                    run = false;
+                }
                 semaphore.Release();
             }
             

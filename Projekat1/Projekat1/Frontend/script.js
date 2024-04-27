@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     newLabel.textContent = "(query):";
     const newInput = document.createElement("input");
     newInput.setAttribute("type", "text");
-    newInput.classList.add("input-field"); // Add class to input field
+    newInput.classList.add("input-field");
 
     const removeButton = document.createElement("button");
     removeButton.classList.add("removeInput");
