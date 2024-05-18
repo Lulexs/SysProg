@@ -1,0 +1,27 @@
+Section Mutex Kernel
+Thread Synchronization Concurrency
+Race Condition Semaphore
+Memory Buffer Cache
+Atomic Interrupt Lock
+Semaphore Mutex Deadlock
+Process Critical Section
+Kernel Thread Synchronization
+Concurrency Race Condition
+Semaphore Memory Buffer
+Lock Atomic Interrupt
+Mutex Deadlock Process
+Critical Section Kernel
+sistemsko
+sistemsko programiranje
+sistemsko sistemskoprogramiranjeprogramiranje
+elfak elfakfakelelfakelfak
+elfak elfakel projekt projekat
+projekti
+sistemsko
+sistemsko
+sistemsko
+sistemsko programiranje
+sistemsko sistemskoprogramiranjeprogramiranje
+elfak elfakfakelelfakelfak
+elfak elfakel projekt projekat
+projekti
