@@ -117,7 +117,7 @@ public class WebServer {
         AhoCorasick ac = new AhoCorasick(toBeProcessed);
 
         foreach (var file in searchFiles) {
-            tasks.Add(SearchWordsInFile(file, ac));
+            tasks.Add(Task.Factory.StartNew(async () => await SearchWordsInFile(file, ac), TaskCreationOptions.LongRunning).Unwrap());
         }
         await Task.WhenAll(tasks);
 
