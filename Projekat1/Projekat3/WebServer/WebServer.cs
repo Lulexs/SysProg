@@ -2,24 +2,28 @@ using System.Diagnostics;
 using System.Net;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using Projekat3.Models;
+using Projekat3.Services;
 
 namespace Projekat3.WebServer;
 
 public class WebServer {
-    private const int Port = 10881;
+    private const int Port = 10889;
 
     private readonly string[] _prefixes = [
         $"http://localhost:{Port}/", $"http://127.0.0.1:{Port}/"
     ];
     
     private readonly HttpListener _listener = new();
+    private readonly GithubService _githubService;
     private IDisposable? _subscription;
 
-    public WebServer() {
+    public WebServer(GithubService githubService) {
         foreach (var prefix in _prefixes) {
             _listener.Prefixes.Add(prefix);
         }
 
+        _githubService = githubService;
         _listener.Start();
         Console.WriteLine($"Listening at...\n{String.Join("\n", _listener.Prefixes)}");
     }
@@ -49,35 +53,44 @@ public class WebServer {
         Stopwatch stopwatch = new();
         stopwatch.Start();
         string[]? segments = request.Url?.Segments;
-        string[]? searchWords = segments?[^1].Trim('/').Split('&');
-
-        byte[] buffer;
-
-        if (searchWords == null || searchWords.Length == 0 || searchWords.Length > 10) {
-            buffer = HtmlGen.GenerateErrorTemplate([
+        string[]? topics = segments?[^1].Trim('/').Split('&');
+        
+        if (topics == null || topics.Length == 0 || topics.Length > 10) {
+             SendResponse(HtmlGen.GenerateErrorTemplate([
                 "Error occured while parsing search words",
                 "Illegal number of arguments"
-            ]);
-            
-        }
-        else {
-            try {
-                buffer = "<h1>Hello world</h1>"u8.ToArray();
-            }
-            catch (Exception ec) {
-                buffer = HtmlGen.GenerateErrorTemplate([
-                    "Error occured while processing search words",
-                    ec.Message
-                ]);
-            }
+            ]), response, stopwatch, request.HttpMethod, request.UserHostAddress);
         }
 
+        Dictionary<string, List<GithubInfo>> statisticsDict = topics!.ToDictionary(w => w, _ => new List<GithubInfo>());
+
+        _githubService.GetRelatedRepositories(topics!.ToHashSet()).Subscribe(
+            info => {
+                Console.WriteLine($"Repo ${info.Name} processed in thread ${Thread.CurrentThread.ManagedThreadId}");
+                statisticsDict[info.Topic].Add(info);
+            },
+            exception => {
+                Console.WriteLine($"Result sent in thread ${Thread.CurrentThread.ManagedThreadId}");
+                SendResponse(HtmlGen.GenerateErrorTemplate([
+                    "Error occured while processing topics",
+                    exception.Message
+                ]), response, stopwatch, request.HttpMethod, request.UserHostAddress);
+            },
+            () => {
+                Console.WriteLine($"Result sent in thread ${Thread.CurrentThread.ManagedThreadId}");
+                SendResponse(HtmlGen.GenerateOverviewByTopic(statisticsDict), response, stopwatch, request.HttpMethod,
+                    request.UserHostAddress);
+            });
+    }
+
+    private void SendResponse(byte[] buffer, HttpListenerResponse response, Stopwatch stopwatch, string method,
+        string userAddress) {
         response.ContentLength64 = buffer.Length;
         Stream output = response.OutputStream;
         output.Write(buffer, 0, buffer.Length);
         output.Close();
         stopwatch.Stop();
-        Console.WriteLine($"{request.HttpMethod} from {request.UserHostAddress} successfully processed in ${stopwatch.Elapsed.TotalSeconds} seconds");
+        Console.WriteLine($"{method} from {userAddress} successfully processed in ${stopwatch.Elapsed.TotalSeconds} seconds");
     }
 
     private IObservable<HttpListenerContext?> GetRequestStream() {
@@ -86,6 +99,7 @@ public class WebServer {
             while (true) {
                 try {
                     var context = await _listener.GetContextAsync();
+                    Console.WriteLine($"Request accepted in thread ${Thread.CurrentThread.ManagedThreadId}");
                     observer.OnNext(context);
                 }
                 catch (HttpListenerException ec) {

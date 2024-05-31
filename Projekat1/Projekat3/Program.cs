@@ -1,17 +1,24 @@
 ﻿using System.Timers;
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
+using Projekat3.Services;
 using Timer = System.Timers.Timer;
 
 namespace Projekat3;
 
-public static class Program  {
-    public static void Main(string[] args) {
+class Program  {
+    static void Main(string[] args) {
+        
+        var configuration = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
+        string apiKey = configuration["GithubKey"]!;
+        GithubService githubService = new(apiKey);
+        
         Timer timer = new Timer(20000);
         timer.Elapsed += TimerElapsed!;
         timer.AutoReset = true;
         timer.Start();
         
-        WebServer.WebServer webServer = new();
+        WebServer.WebServer webServer = new(githubService);
         webServer.Init();
         
         Console.ReadKey();

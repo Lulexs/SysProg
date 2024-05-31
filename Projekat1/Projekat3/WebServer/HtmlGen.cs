@@ -1,4 +1,5 @@
 using System.Text;
+using Projekat3.Models;
 
 namespace Projekat3.WebServer;
 
@@ -101,15 +102,14 @@ public static class HtmlGen {
         return Encoding.UTF8.GetBytes(sb.ToString());
     }
 
-    public static byte[] GenerateSearchWordAppearanceTable(Dictionary<string, Dictionary<string, int>>results) {
-        var uniqueFiles = results.Values.Select(p => p.Keys).SelectMany(q => q).ToHashSet().ToList();
+    public static byte[] GenerateOverviewByTopic(Dictionary<string, List<GithubInfo>> results) {
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("<!DOCTYPE html>");
         sb.AppendLine("<html lang=\"en\">");
         sb.AppendLine("<head>");
         sb.AppendLine("    <meta charset=\"UTF-8\">");
         sb.AppendLine("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-        sb.AppendLine("    <title>Search Word Appearances</title>");
+        sb.AppendLine("    <title>Github Repositories by Topic</title>");
         sb.AppendLine("    <style>");
         sb.AppendLine("        table {");
         sb.AppendLine("            border-collapse: collapse;");
@@ -129,25 +129,33 @@ public static class HtmlGen {
         sb.AppendLine("    </style>");
         sb.AppendLine("</head>");
         sb.AppendLine("<body>");
-        sb.AppendLine("    <h1>Search Word Appearances</h1>");
+        sb.AppendLine("    <h1>Github Repositories by Topic</h1>");
         sb.AppendLine("    <table>");
         sb.AppendLine("        <thead>");
         sb.AppendLine("            <tr>");
-        sb.AppendLine("                <th>Word</th>");
-        foreach (var filename in uniqueFiles) {
-            sb.AppendLine($"             <th>{filename}</th>");
+
+        foreach (var topic in results.Keys) {
+            sb.AppendLine($"             <th>{topic}</th>");
         }
         sb.AppendLine("            </tr>");
         sb.AppendLine("        </thead>");
         sb.AppendLine("        <tbody>");
-        foreach(KeyValuePair<string, Dictionary<string, int>> app in results) {
-            sb.AppendLine("            <tr>");
-            sb.AppendLine($"                <td>{app.Key}</td>");
-            foreach(var filename in uniqueFiles) {
-                var appearsInFile = app.Value.TryGetValue(filename, out int apps);
-                sb.AppendLine($"                <td>{(appearsInFile ? apps : 0)}</td>");
-            }
 
+        int maxRows = results.Values.Max(list => list.Count);
+
+        for (int i = 0; i < maxRows; i++) {
+            sb.AppendLine("            <tr>");
+            foreach (var topic in results.Keys) {
+                if (i < results[topic].Count) {
+                    var repo = results[topic][i];
+                    sb.AppendLine(
+                        $"                <td>{repo.Name} (Stars: {repo.Stars}, Forks: {repo.Forks}, Size: {repo.Size})</td>");
+                }
+                else {
+                    sb.AppendLine(
+                        "                <td></td>");
+                }
+            }
             sb.AppendLine("            </tr>");
         }
         sb.AppendLine("        </tbody>");

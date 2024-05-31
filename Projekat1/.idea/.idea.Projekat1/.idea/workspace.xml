@@ -10,9 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63ea4520-48ba-42ee-814e-f5059d6d9e0c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Projekat3/MLTraining/DataModels.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat3/Frontend/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat3/Frontend/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projekat3/Frontend/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Projekat1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projekat1.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat1.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat3/Models/GithubInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat3/Models/GithubInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat3/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat3/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat3/Projekat3.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat3/Projekat3.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat3/Services/GithubService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat3/Services/GithubService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat3/WebServer/HtmlGen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat3/WebServer/HtmlGen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekat3/WebServer/WebServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Projekat3/WebServer/WebServer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,33 +50,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.Projekat1.executor": "Run",
-    ".NET Project.Projekat2.executor": "Run",
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.index.html.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.appearance",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.Projekat1.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.Projekat2.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.Projekat3.executor&quot;: &quot;Run&quot;,
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.appearance&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/home/lule/.config/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
-      "/home/lule/.config/JetBrains/Rider2024.1/resharper-host/SourcesCache",
-      "/home/lule/.local/share/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/home/lule/.config/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
+      &quot;/home/lule/.config/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
+      &quot;/home/lule/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
-  <component name="RunManager" selected=".NET Project.Projekat2">
+}</component>
+  <component name="RunManager" selected=".NET Project.Projekat3">
     <configuration name="Projekat1" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -163,6 +172,11 @@
       <workItem from="1716800634421" duration="625000" />
       <workItem from="1717090225864" duration="897000" />
       <workItem from="1717091384858" duration="1560000" />
+      <workItem from="1717096822289" duration="10800000" />
+      <workItem from="1717143914839" duration="5249000" />
+      <workItem from="1717154512808" duration="1569000" />
+      <workItem from="1717156855961" duration="711000" />
+      <workItem from="1717157798312" duration="920000" />
     </task>
     <servers />
   </component>
@@ -170,6 +184,9 @@
     <option name="version" value="3" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
